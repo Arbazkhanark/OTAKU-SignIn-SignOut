@@ -1,0 +1,46 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+body{
+    background-image:linear-gradient(rgba(0, 0, 50, 0.616),rgba(0,0,50,0.616)), url("./img/bg.jpg");
+}
+
+form{
+    box-shadow: 2px 2px 10px 5px;
+    padding: 20px;
+    width: 40%;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.781);
+    margin: auto;
+    margin-top: 15%;
+    border-radius: 10px;
+}
+
+div{
+    margin: 30px;
+}
+
+input{
+    width: 80%;
+    padding: 5px;
+    outline: none;
+    /* border-radius: 10px; */
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.buttons button{
+    background-color: blue;
+    color: white;
+    width: 30%;
+    padding: 0.5rem;
+    font-size: medium;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    border-radius: 10px;
+}
