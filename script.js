@@ -36,8 +36,7 @@ already.addEventListener("click",(event)=>{
             msg.appendChild(already);
             console.log(already.innerHTML);
     
-            signinBtn.type="button"
-            console.log("sign Up: "+signinBtn.type);
+            
             signinBtn.classList.remove("DisableButton");
             signinBtn.classList.add("EnableButton");
             signupBtn.classList.add("DisableButton");
@@ -62,8 +61,7 @@ already.addEventListener("click",(event)=>{
                     forget.innerHTML="";
 
 
-                    signupBtn.type="button"
-                    console.log("sign In: "+signupBtn.type);
+
                     signinBtn.classList.add("DisableButton");
                     signinBtn.classList.remove("EnableButton");
                     signupBtn.classList.add("EnableButton");
@@ -79,82 +77,96 @@ already.addEventListener("click",(event)=>{
         event.preventDefault();
         console.log("Hello from From")
 
+
+        // All Inputs filled
+            if(nameInp.value==''|| emailInp.value=='' || passwordInp.value=='' || confirmPass.value==''){
+                alert("All Feilds are Required");
+                return;
+            }
+
+
+
         // Validation Email-Input   
-        emailVal(emailInp);     
-        
-        //Validation Name-Input
-        nameVal(nameInp);
-
-        //Password Validation
-        passwordValidation(passwordInp.value,nameInp.value,emailInp.value);
-
-        //Confirm Password Validation
-        confirmVal(passwordInp.value,confirmPassword.value);
-
-        let user={name:nameInp.value,email:emailInp.value};
-
-        data.push(user);
-        console.log(data);
-    }
-    
-
-
-    function emailVal(email){
-        // let smallLetters=/^[a-z]+$/;
-        // console.log(email.value.match(smallLetters)); 
-        if(email.value.indexOf("@")==-1 || email.value.indexOf(".")==-1 || email.value.indexOf("@")>email.value.lastIndexOf(".")){
+        if(emailInp.value.indexOf("@")==-1 || emailInp.value.indexOf(".")==-1 || emailInp.value.indexOf("@")>emailInp.value.lastIndexOf(".")){
             alert("Enter Valid Email..");
             return;
-        } 
-    }
-
-
-    function nameVal(name){
+        }    
+        
+        //Validation Name-Input
         let letters = /^[A-Za-z ]+$/;
-        if(name.value.match(letters)){
-        // alert('Your name have accepted : you can try another');
-        return true;
+        if(nameInp.value.match(letters)){
+            // alert('Your name have accepted : you can try another');
+            console.log("name is accepted");
         }else{
-        alert('Please input alphabet characters only');
-        return false;
-        }
-    }
-
-
-    function passwordValidation(password,name,email){
-        let number=0;
-        let lower=0;
-        let upper=0;
-        let special=0;
-        let count=0;
-
-        for(let i of password){
-            if(i>="A" && i<="Z"){
-                upper++;
-            }else if(i>="a" && i<="z"){
-                lower++;
-            }else if(i>=0 && i<=9){
-                number++;
-            }else{
-                special++;
-            }
-            count++;
-        }
-
-        if(lower>=1 && upper>=1 && special>=1 && password!=name && password!=email && count>=8){
-            console.log("Valid Password: ",count,upper,special,lower,number);
-        }else{
-            alert("Password is Invalid");
+            alert('Please input alphabet characters only');
             return;
-        } 
-    }
+        }
 
-    function confirmVal(password,confirmPassword){
-        if(password!=confirmPassword){
+        //Password Validation
+        ()=>{
+            let number=0;
+            let lower=0;
+            let upper=0;
+            let special=0;
+            let count=0;
+    
+            for(let i of password){
+                if(i>="A" && i<="Z"){
+                    upper++;
+                }else if(i>="a" && i<="z"){
+                    lower++;
+                }else if(i>=0 && i<=9){
+                    number++;
+                }else{
+                    special++;
+                }
+                count++;
+            }
+    
+            if(lower>=1 && upper>=1 && special>=1 && password!=name && password!=email && count>=8){
+                console.log("Valid Password: ",count,upper,special,lower,number);
+            }else{
+                alert("Password is Invalid");
+                return;
+            } 
+        }
+
+
+        //Confirm Password Validation
+        if(passwordInp.value!=confirmPassword.value){
             alert("Password doesn't match");
             return;
         }
+
+        //User Details
+        let user={Name:nameInp.value,Email:emailInp.value,password:passwordInp.value};
+
+        //Email Already Exists
+        let sameUser=data.filter((user)=>user.Email==emailInp.value)
+        if(sameUser.length>0){
+            alert("Email Already Exists");
+            return;
+        }
+        
+
+
+        let PrevLength=data.length;
+
+        data.push(user);
+        console.log(data);
+
+        //Empty Feilds After Push
+        nameInp.value="";
+        emailInp.value="";
+        passwordInp.value="";
+        confirmPassword.value="";
+
+        //SignUp Status
+        if(PrevLength<data.length){
+            alert("SignUp SuccessFully");
+        }
     }
+    
 
 
     
